@@ -33,3 +33,8 @@ Skills are loaded at session start, so start a new Claude Code session
 after linking it in.
 
 See [`skills/workforest/SKILL.md`](skills/workforest/SKILL.md) for the full instructions given to the agent.
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md). `main` is protected — changes land
+through a reviewed pull request, and only the maintainer can merge one.
