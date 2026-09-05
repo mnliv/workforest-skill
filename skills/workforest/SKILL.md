@@ -25,7 +25,7 @@ do not ask the end user to. Otherwise skip straight to the commands below.
 | `workforest release <path-or-id> [--reset] [--owner <id>]` | Marks worktree as idle. `--reset` cleans untracked files; `--owner` guards release. |
 | `workforest list [--json] [--status idle\|in-use]` | Lists managed worktrees. |
 | `workforest status <path-or-id> [--json]` | Shows full detail for a specific worktree. |
-| `workforest clean [--older-than <duration>] [--all] [--force] [--dry-run]` | Removes idle worktrees. `--older-than` (e.g., `2h`) and `--all` (requires `--force`). |
+| `workforest clean [--older-than <duration>] [--all] [--force] [--dry-run]` | Removes idle worktrees (`--all` also includes in-use ones). `--force` is required to remove *anything*, idle-only or `--all` alike; `--dry-run` previews without it. |
 | `workforest prune` | Reconciles tracked state with `git worktree list`. |
 
 **Exit Codes:**
@@ -46,5 +46,6 @@ do not ask the end user to. Otherwise skip straight to the commands below.
 - **Task Slugs**: Use short kebab-case slugs for the `--task` flag.
 - **Reacquiring the same branch**: `--base` only takes effect when a new branch is being created, or an idle worktree is being switched onto a *different* branch than it's currently on. Reacquiring a worktree already on the requested branch never resets it, even with `--base` passed — so it's always safe to pass `--base` defensively without risk of discarding prior commits.
 - **Fallback**: Only fall back to manual `git worktree add`/`remove` if installing the CLI (see Setup above) genuinely isn't possible in this environment (e.g. no npm/network access at all) — not just because the first install attempt hit a fixable error.
-- **Safety**: Never execute `workforest clean --all --force` without explicit instruction, as it can destroy active worktrees from other sessions.
+- **Safety**: Never execute `workforest clean --force` (with or without `--all`) without explicit instruction. Plain `clean --force` already destroys *every* idle worktree in one shot, no age filter needed — `--all` isn't what makes it dangerous, it only widens the blast radius to in-use worktrees from other sessions too. When you do need to clean up, run `clean --dry-run` first and confirm the list looks right.
+- **Staleness**: There's no automatic "abandoned" indicator — `list`/`status` won't ever flag a worktree as stale. Judge from `owner`/`task`/`lastUsedAt` yourself before treating one as available; when in doubt, ask rather than assume it's free to reuse or clean.
 - **Locking**: Exit code `3` indicates a lock is held by another process; retry after a short delay.
