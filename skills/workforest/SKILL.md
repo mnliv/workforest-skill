@@ -7,34 +7,14 @@ description: Use when starting parallel/isolated coding-agent work in git worktr
 
 `workforest` (alias `wf`) is a CLI tool designed for managing git worktrees during parallel/isolated coding-agent sessions. It prevents multiple agents from colliding on the same worktree by tracking idle vs. in-use states and enables safe reuse and cleanup of worktree environments.
 
-## Setup (do this first, every time this skill is used)
-
-Check whether the CLI is already on `PATH`:
+## Setup (check first, every time this skill is used)
 
 ```bash
 command -v workforest || command -v wf
 ```
 
-If neither is found, install it yourself — do not ask the end user to do this:
-
-```bash
-npm install -g @mnliv/workforest
-```
-
-(Requires Node.js >= 18. If the global install fails with an `EACCES`/permission
-error, it means npm's global prefix isn't user-writable — retry with `sudo`
-on macOS/Linux, or re-run the terminal as Administrator on Windows. Don't
-silently give up and fall back to manual `git worktree` commands just
-because the first install attempt failed.)
-
-Verify it worked before proceeding:
-
-```bash
-workforest --version
-```
-
-Once installed, it stays installed — this setup check is a no-op on future
-invocations in the same environment.
+If neither is found, read `references/install.md` and install it yourself —
+do not ask the end user to. Otherwise skip straight to the commands below.
 
 ## Command Reference
 
