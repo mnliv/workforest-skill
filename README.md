@@ -25,13 +25,16 @@ ships bundled inside the CLI package and updates whenever the CLI does.
 
 ```bash
 npm install -g @mnliv/workforest
-workforest skill install
+workforest skill install --provider claude
 ```
 
-By default this installs into `~/.claude/skills/workforest` (available in
-every project); pass `--target <dir>` to install into a specific project's
-`.claude/skills/workforest` instead. Skills are loaded at session start, so
-start a new Claude Code session afterward.
+`--provider claude` is currently the default and only supported provider
+(Claude Code) — pass it explicitly so this keeps working unchanged if other
+providers are added later. By default this installs into
+`~/.claude/skills/workforest` (available in every project); pass `--target
+<dir>` to install into a specific project's `.claude/skills/workforest`
+instead. Skills are loaded at session start, so start a new Claude Code
+session afterward.
 
 Re-running `workforest skill install` at any point (e.g. after `npm update
 -g @mnliv/workforest`) resyncs it — it's a no-op if already current. The

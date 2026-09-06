@@ -19,8 +19,12 @@ do not ask the end user to.
 Then always run:
 
 ```bash
-workforest skill install
+workforest skill install --provider claude
 ```
+
+(`--provider claude` is already the default — Claude Code is the only
+supported provider right now — but pass it explicitly so this keeps working
+unchanged if other providers are added later.)
 
 This resyncs this locally-installed copy of the skill against whatever
 `workforest` version is actually installed — it's a no-op if already
