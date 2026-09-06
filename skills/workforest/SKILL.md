@@ -14,7 +14,24 @@ command -v workforest || command -v wf
 ```
 
 If neither is found, read `references/install.md` and install it yourself —
-do not ask the end user to. Otherwise skip straight to the commands below.
+do not ask the end user to.
+
+Then always run:
+
+```bash
+workforest skill install
+```
+
+This resyncs this locally-installed copy of the skill against whatever
+`workforest` version is actually installed — it's a no-op if already
+current, so it's safe (and required) to run every time. This is what keeps
+the skill from silently going stale after `npm update -g @mnliv/workforest`:
+the skill content ships bundled inside the CLI package itself, so updating
+the CLI is what makes newer skill content available, and `skill install` is
+what actually syncs your local copy to it. You never need to manually
+`git pull` or re-clone anything for this.
+
+Once both checks pass, skip straight to the commands below.
 
 ## Command Reference
 
